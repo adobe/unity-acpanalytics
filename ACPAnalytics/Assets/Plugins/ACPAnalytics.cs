@@ -62,27 +62,27 @@ namespace com.adobe.marketing.mobile
 
 	public class ACPAnalytics
 	{
-    #if UNITY_IPHONE
-	/* ===================================================================
-		* extern declarations for iOS Methods
-		* =================================================================== */
+        #if UNITY_IPHONE
+	    /* ===================================================================
+		    * extern declarations for iOS Methods
+		    * =================================================================== */
 
-	/*---------------------------------------------------------------------
-	* Core
-	*----------------------------------------------------------------------*/
-	//TODO
-    #endif
+	    /*---------------------------------------------------------------------
+	    * Core
+	    *----------------------------------------------------------------------*/
+	    //TODO
+        #endif
 
-    #if UNITY_ANDROID && !UNITY_EDITOR
-    /* ===================================================================
-    * Static Helper objects for our JNI access
-    * =================================================================== */
-    static AndroidJavaClass analytics = new AndroidJavaClass("com.adobe.marketing.mobile.Analytics");
-    #endif
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        /* ===================================================================
+        * Static Helper objects for our JNI access
+        * =================================================================== */
+        static AndroidJavaClass analytics = new AndroidJavaClass("com.adobe.marketing.mobile.Analytics");
+        #endif
 
-		/*---------------------------------------------------------------------
-		* Analytics Methods
-		*----------------------------------------------------------------------*/
+	    /*---------------------------------------------------------------------
+	    * Analytics Methods
+	    *----------------------------------------------------------------------*/
         public static void RegisterExtension()
         {
             #if UNITY_IPHONE && !UNITY_EDITOR
@@ -92,23 +92,23 @@ namespace com.adobe.marketing.mobile
             #endif
         }
 
-		public static string AnalyticsExtensionVersion()
-		{
+        public static string AnalyticsExtensionVersion()
+	    {
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			return analytics.CallStatic<string> ("extensionVersion");
+		    return analytics.CallStatic<string> ("extensionVersion");
             #else
-			return "";
+		    return "";
             #endif
-		}
+	    }
 
         public static void SendQueuedHits()
         {
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("sendQueuedHits");
+		    analytics.CallStatic("sendQueuedHits");
             #endif
         }
 
@@ -117,7 +117,7 @@ namespace com.adobe.marketing.mobile
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("clearQueue");
+		    analytics.CallStatic("clearQueue");
             #endif
         }
 
@@ -126,7 +126,7 @@ namespace com.adobe.marketing.mobile
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("getQueueSize", new GetQueueSizeCallback(callback));
+		    analytics.CallStatic("getQueueSize", new GetQueueSizeCallback(callback));
             #endif
         }
 
@@ -135,7 +135,7 @@ namespace com.adobe.marketing.mobile
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("getTrackingIdentifier", new GetTrackingIdentifierCallback(callback));
+		    analytics.CallStatic("getTrackingIdentifier", new GetTrackingIdentifierCallback(callback));
             #endif
         }
 
@@ -144,7 +144,7 @@ namespace com.adobe.marketing.mobile
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("setVisitorIdentifier", visitorId);
+		    analytics.CallStatic("setVisitorIdentifier", visitorId);
             #endif
         }
 
@@ -153,7 +153,7 @@ namespace com.adobe.marketing.mobile
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("getVisitorIdentifier", new GetVisitorIdentifierCallback(callback));
+		    analytics.CallStatic("getVisitorIdentifier", new GetVisitorIdentifierCallback(callback));
             #endif
         }
 	}
