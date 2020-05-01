@@ -88,7 +88,7 @@ namespace com.adobe.marketing.mobile
             #if UNITY_IPHONE && !UNITY_EDITOR
             //todo
             #elif UNITY_ANDROID && !UNITY_EDITOR
-			analytics.CallStatic("registerExtension");
+            analytics.CallStatic("registerExtension");
             #endif
         }
 
