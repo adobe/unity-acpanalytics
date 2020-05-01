@@ -67,8 +67,6 @@ ACPIdentityWrapper.h
 ACPIdentityWrapper.h.meta
 ACPIdentityWrapper.mm
 ACPIdentityWrapper.mm.meta
-libACPAnalytics_iOS.a
-libACPAnalytics_iOS.a.meta
 libACPCore_iOS.a
 libACPCore_iOS.a.meta
 libACPIdentity_iOS.a
