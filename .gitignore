@@ -39,14 +39,25 @@ sysinfo.txt
 *.unitypackage
 
 *.DS_Store
+.idea
 
-#ACPCore files
+bin/build_temp/*
+
+#Build files
+ACPAnalytics/iOSBuild/
+ACPAnalytics/AndroidBuild/
+
+#ACPcore files
 ACPCore.cs
 ACPCore.cs.meta
 ACPHelpers.cs
 ACPHelpers.cs.meta
 ACPIdentity.cs
 ACPIdentity.cs.meta
+ACPLifecycle.cs
+ACPLifecycle.cs.meta
+ACPSignal.cs
+ACPSignal.cs.meta
 core-1.5.2.aar
 core-1.5.2.aar.meta
 identity-1.2.0.aar
@@ -63,10 +74,24 @@ ACPCoreWrapper.mm
 ACPCoreWrapper.mm.meta
 ACPExtensionEvent.h
 ACPExtensionEvent.h.meta
+ACPIdentity.h
+ACPIdentity.h.meta
 ACPIdentityWrapper.h
 ACPIdentityWrapper.h.meta
 ACPIdentityWrapper.mm
 ACPIdentityWrapper.mm.meta
+ACPLifecycle.h
+ACPLifecycle.h.meta
+ACPLifecycleWrapper.h
+ACPLifecycleWrapper.h.meta
+ACPLifecycleWrapper.mm
+ACPLifecycleWrapper.mm.meta
+ACPSignal.h
+ACPSignal.h.meta
+ACPSignalWrapper.h
+ACPSignalWrapper.h.meta
+ACPSignalWrapper.mm
+ACPSignalWrapper.mm.meta
 libACPCore_iOS.a
 libACPCore_iOS.a.meta
 libACPIdentity_iOS.a

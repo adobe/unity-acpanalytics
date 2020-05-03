@@ -29,42 +29,40 @@ public class SceneScript : MonoBehaviour
     public Button btnGetVisitorIdentifier;
     public InputField visitorIdentifier;
 
-    //Analytics callbacks
+    // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
     public static void HandleStartAdobeCallback()
-    {   
-        if (Application.platform == RuntimePlatform.Android) {
-            ACPCore.ConfigureWithAppID("94f571f308d5/7376e8bb5591/launch-15ec923b1cfa-development");    
-        } else if (Application.platform == RuntimePlatform.IPhonePlayer) {
-            Debug.Log("HandleStartAdobeCallback iphone");
-        }
+    {
+        ACPCore.ConfigureWithAppID("94f571f308d5/7376e8bb5591/launch-15ec923b1cfa-development");    
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetQueueSizeCallback))]
     public static void HandleAdobeGetQueueSizeCallback(long queueSize)
     {
-        print("Queue size is : " + queueSize);
+        Debug.Log("Queue size is : " + queueSize);
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetTrackingIdentifierCallback))]
     public static void HandleAdobeGetTrackingIdentifierCallback(string trackingIdentifier)
     {
-        print("Tracking identifier is : " + trackingIdentifier);
+        Debug.Log("Tracking identifier is : " + trackingIdentifier);
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetVisitorIdentifierCallback))]
     public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentifier)
     {
-        print("Visitor identifier is : " + visitorIdentifier);
+        Debug.Log("Visitor identifier is : " + visitorIdentifier);
     }
 
 
     void Start()
     {
-        ACPCore.SetApplication();
+        if (Application.platform == RuntimePlatform.Android) {
+            ACPCore.SetApplication();
+        }
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
         ACPIdentity.registerExtension();
-        ACPAnalytics.RegisterExtension();
+        ACPAnalytics.AnalyticsRegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
