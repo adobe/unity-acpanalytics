@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 namespace com.adobe.marketing.mobile
 {
@@ -64,13 +65,31 @@ namespace com.adobe.marketing.mobile
 	{
         #if UNITY_IPHONE
 	    /* ===================================================================
-		    * extern declarations for iOS Methods
-		    * =================================================================== */
+		 * extern declarations for iOS Methods
+		 * =================================================================== */
+        [DllImport ("__Internal")]
+		private static extern System.IntPtr acp_Analytics_ExtensionVersion();
 
-	    /*---------------------------------------------------------------------
-	    * Core
-	    *----------------------------------------------------------------------*/
-	    //TODO
+        [DllImport ("__Internal")]
+		private static extern void acp_Analytics_RegisterExtension();
+
+        [DllImport ("__Internal")]
+		private static extern void acp_SendQueuedHits();
+
+        [DllImport ("__Internal")]
+		private static extern void acp_ClearQueue();
+
+        [DllImport ("__Internal")]
+		private static extern void acp_GetQueueSize(AdobeGetQueueSizeCallback callback);
+
+        [DllImport ("__Internal")]
+		private static extern void acp_GetTrackingIdentifier(AdobeGetTrackingIdentifierCallback callback);
+
+        [DllImport ("__Internal")]
+		private static extern void acp_SetVisitorIdentifier(string visitorIdentifier);
+
+        [DllImport ("__Internal")]
+		private static extern void acp_GetVisitorIdentifier(AdobeGetVisitorIdentifierCallback callback);
         #endif
 
         #if UNITY_ANDROID && !UNITY_EDITOR
@@ -83,19 +102,10 @@ namespace com.adobe.marketing.mobile
 	    /*---------------------------------------------------------------------
 	    * Analytics Methods
 	    *----------------------------------------------------------------------*/
-        public static void RegisterExtension()
-        {
-            #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
-            #elif UNITY_ANDROID && !UNITY_EDITOR
-            analytics.CallStatic("registerExtension");
-            #endif
-        }
-
         public static string AnalyticsExtensionVersion()
 	    {
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            return Marshal.PtrToStringAnsi(acp_Analytics_ExtensionVersion());		
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    return analytics.CallStatic<string> ("extensionVersion");
             #else
@@ -103,10 +113,19 @@ namespace com.adobe.marketing.mobile
             #endif
 	    }
 
+        public static void AnalyticsRegisterExtension()
+        {
+            #if UNITY_IPHONE && !UNITY_EDITOR
+            acp_Analytics_RegisterExtension();
+            #elif UNITY_ANDROID && !UNITY_EDITOR
+            analytics.CallStatic("registerExtension");
+            #endif
+        }
+
         public static void SendQueuedHits()
         {
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            acp_SendQueuedHits();
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    analytics.CallStatic("sendQueuedHits");
             #endif
@@ -115,7 +134,7 @@ namespace com.adobe.marketing.mobile
         public static void ClearQueue()
         {
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            acp_ClearQueue();
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    analytics.CallStatic("clearQueue");
             #endif
@@ -123,8 +142,12 @@ namespace com.adobe.marketing.mobile
 
         public static void GetQueueSize(AdobeGetQueueSizeCallback callback)
         {
+            if (callback == null) {
+				Debug.Log("Unable to perform GetQueueSize, callback is null");
+				return;
+			}
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            acp_GetQueueSize(callback);
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    analytics.CallStatic("getQueueSize", new GetQueueSizeCallback(callback));
             #endif
@@ -132,8 +155,12 @@ namespace com.adobe.marketing.mobile
 
         public static void GetTrackingIdentifier(AdobeGetTrackingIdentifierCallback callback)
         {
+            if (callback == null) {
+				Debug.Log("Unable to perform GetTrackingIdentifier, callback is null");
+				return;
+			}
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            acp_GetTrackingIdentifier(callback);
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    analytics.CallStatic("getTrackingIdentifier", new GetTrackingIdentifierCallback(callback));
             #endif
@@ -141,8 +168,12 @@ namespace com.adobe.marketing.mobile
 
         public static void SetVisitorIdentifier(string visitorId)
         {
+            if(visitorId == null)
+            {
+                Debug.Log("Unable to perform SetVisitorIdentifier, visitorId is null");
+            }
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            acp_SetVisitorIdentifier(visitorId == null ? "" : visitorId);
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    analytics.CallStatic("setVisitorIdentifier", visitorId);
             #endif
@@ -150,8 +181,12 @@ namespace com.adobe.marketing.mobile
 
         public static void GetVisitorIdentifier(AdobeGetVisitorIdentifierCallback callback)
         {
+			if (callback == null) {
+				Debug.Log("Unable to perform GetVisitorIdentifier, callback is null");
+				return;
+			}
             #if UNITY_IPHONE && !UNITY_EDITOR
-            //todo
+            acp_GetVisitorIdentifier(callback);
             #elif UNITY_ANDROID && !UNITY_EDITOR
 		    analytics.CallStatic("getVisitorIdentifier", new GetVisitorIdentifierCallback(callback));
             #endif
