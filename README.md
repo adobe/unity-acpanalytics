@@ -29,8 +29,8 @@ Plugins for a Unity project use the following folder structure:
 - Import `ACPCore.unitypackage` via Assets->Import Package
 
 - Download [ACPAnalytics-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/ACPAnalytics/bin/ACPAnalytics-0.0.1-Unity.zip) 
--Unzip`ACPAnalytics-0.0.1-Unity.zip`
--Import `ACPAnalytics.unitypackage` via Assets->Import Package
+- Unzip`ACPAnalytics-0.0.1-Unity.zip`
+- Import `ACPAnalytics.unitypackage` via Assets->Import Package
 ## Usage
 
 ### [Analytics](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-analytics)
