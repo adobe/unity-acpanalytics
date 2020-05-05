@@ -28,6 +28,7 @@ public class SceneScript : MonoBehaviour
     public Button btnSetVisitorIdentifier;
     public Button btnGetVisitorIdentifier;
     public InputField visitorIdentifier;
+    public static Text callbackResults;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
@@ -46,12 +47,14 @@ public class SceneScript : MonoBehaviour
     public static void HandleAdobeGetTrackingIdentifierCallback(string trackingIdentifier)
     {
         Debug.Log("Tracking identifier is : " + trackingIdentifier);
+        
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetVisitorIdentifierCallback))]
     public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentifier)
     {
         Debug.Log("Visitor identifier is : " + visitorIdentifier);
+        callbackResults.text = visitorIdentifier;
     }
 
 
@@ -64,6 +67,9 @@ public class SceneScript : MonoBehaviour
         ACPIdentity.registerExtension();
         ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
+
+        var callbackResultsGameObject = GameObject.Find("CallbackResults");
+        callbackResults = callbackResultsGameObject.GetComponent<Text>();
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
         btnSendQueuedHits.onClick.AddListener(sendQueuedHits);
@@ -79,7 +85,8 @@ public class SceneScript : MonoBehaviour
         Debug.Log("Calling Analytics extensionVersion");
 		string analyticsExtensionVersion = ACPAnalytics.ExtensionVersion();
         Debug.Log("Analytics extension version : " + analyticsExtensionVersion);
-	}
+        callbackResults.text = analyticsExtensionVersion;
+    }
 
     void sendQueuedHits()
     {
