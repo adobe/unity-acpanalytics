@@ -103,7 +103,7 @@ namespace com.adobe.marketing.mobile
 	    /*---------------------------------------------------------------------
 	    * Analytics Methods
 	    *----------------------------------------------------------------------*/
-        public static string extensionVersion()
+        public static string ExtensionVersion()
 	    {
             #if UNITY_IPHONE && !UNITY_EDITOR
             return Marshal.PtrToStringAnsi(acp_Analytics_ExtensionVersion());		
@@ -114,7 +114,7 @@ namespace com.adobe.marketing.mobile
             #endif
 	    }
 
-        public static void registerExtension()
+        public static void RegisterExtension()
         {
             #if UNITY_IPHONE && !UNITY_EDITOR
             acp_Analytics_RegisterExtension();
