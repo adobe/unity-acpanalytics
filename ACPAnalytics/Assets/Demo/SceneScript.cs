@@ -62,7 +62,7 @@ public class SceneScript : MonoBehaviour
         }
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
         ACPIdentity.registerExtension();
-        ACPAnalytics.registerExtension();
+        ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
@@ -77,7 +77,7 @@ public class SceneScript : MonoBehaviour
     void analyticsExtensionVersion()
 	{
         Debug.Log("Calling Analytics extensionVersion");
-		string analyticsExtensionVersion = ACPAnalytics.extensionVersion();
+		string analyticsExtensionVersion = ACPAnalytics.ExtensionVersion();
         Debug.Log("Analytics extension version : " + analyticsExtensionVersion);
 	}
 
