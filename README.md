@@ -110,6 +110,12 @@ public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentif
 ACPAnalytics.GetVisitorIdentifier(HandleAdobeGetVisitorIdentifierCallback);
 ```
 ## Running Tests
+1. Open the demo app in unity.
+2. Open the test runner from `Window -> General -> TestRunner`.
+3. Click on the `PlayMode` tab.
+4. Connect an Android or iOS device as we run the tests on a device in play mode.
+5. Select the platform for which the tests need to be run from `File -> Build Settings -> Platform`. 
+5. Click `Run all in player (platform)` to run the tests.
 
 ## Sample App
 
