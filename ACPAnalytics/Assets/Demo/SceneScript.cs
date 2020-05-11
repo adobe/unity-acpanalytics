@@ -36,7 +36,7 @@ public class SceneScript : MonoBehaviour
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
     public static void HandleStartAdobeCallback()
     {
-        ACPCore.ConfigureWithAppID("94f571f308d5/7376e8bb5591/launch-15ec923b1cfa-development");    
+        ACPCore.ConfigureWithAppID("94f571f308d5/2aa20c8232ad/launch-59a72c8b5df0-development");    
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetQueueSizeCallback))]
@@ -72,7 +72,8 @@ public class SceneScript : MonoBehaviour
             ACPCore.SetApplication();
         }
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
-        ACPIdentity.registerExtension();
+        ACPCore.SetWrapperType();
+        ACPIdentity.RegisterExtension();
         ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
 
@@ -114,6 +115,10 @@ public class SceneScript : MonoBehaviour
     void getTrackingIdentifier()
     {
         Debug.Log("Calling getTrackingIdentifier");
+        //ACPAnalytics.GetTrackingIdentifier(HandleAdobeGetTrackingIdentifierCallback);
+        Dictionary<string, object> config = new Dictionary<string, object>();
+        config.Add("experienceCloud.org","null");
+        ACPCore.UpdateConfiguration(config);
         ACPAnalytics.GetTrackingIdentifier(HandleAdobeGetTrackingIdentifierCallback);
     }
 
