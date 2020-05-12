@@ -31,7 +31,6 @@ public class SceneScript : MonoBehaviour
     public Button btnSetVisitorIdentifier;
     public Button btnGetVisitorIdentifier;
     public InputField visitorIdentifier;
-    public static Text callbackResults;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
@@ -45,7 +44,6 @@ public class SceneScript : MonoBehaviour
     {
         Debug.Log("Queue size is : " + queueSize);
         results = "Queue size is : " + queueSize;
-
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetTrackingIdentifierCallback))]
