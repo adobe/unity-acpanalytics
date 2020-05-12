@@ -44,5 +44,5 @@ jobs:
     # Output 
     - uses: actions/upload-artifact@v1
       with:
-        name: Build
-        path: bin
+        name: ACPAnalyticsPackage
+        path: bin/ACPAnalytics.unitypackage
