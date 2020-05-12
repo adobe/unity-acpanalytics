@@ -46,3 +46,17 @@ jobs:
       with:
         name: Build
         path: bin
+    
+    # Test
+    - name: Run tests
+      uses: webbertakken/unity-test-runner@v1.3
+      with:
+        projectPath: ACPAnalytics
+        unityVersion: 2019.3.11f1
+        testMode: playmode 
+
+    # Upload artifact
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Test results
+        path: bin
