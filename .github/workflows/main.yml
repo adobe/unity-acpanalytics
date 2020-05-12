@@ -33,6 +33,7 @@ jobs:
       uses: webbertakken/unity-test-runner@v1.3
       with:
         unityVersion: 2019.3.11f1
+        testMode: playmode 
 
     # Build
     - name: Build project
