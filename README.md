@@ -49,10 +49,10 @@ public class MainScript : MonoBehaviour
         }
         
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
-        ACPIdentity.registerExtension();
-        ACPLifecycle.registerExtension();
-        ACPSignal.registerExtension();
-        ACPAnalytics.registerExtension();
+        ACPIdentity.RegisterExtension();
+        ACPLifecycle.RegisterExtension();
+        ACPSignal.RegisterExtension();
+        ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
     }
 }
@@ -62,7 +62,7 @@ public class MainScript : MonoBehaviour
 
 ##### Getting Analytics version:
 ```cs
-ACPAnalytics.extensionVersion();
+ACPAnalytics.ExtensionVersion();
 ```
 
 #### Send queued hits:

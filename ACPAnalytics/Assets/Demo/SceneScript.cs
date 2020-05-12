@@ -77,7 +77,7 @@ public class SceneScript : MonoBehaviour
         ACPCore.Start(HandleStartAdobeCallback);
 
         var callbackResultsGameObject = GameObject.Find("CallbackResults");
-        callbackResults = callbackResultsGameObject.GetComponent<Text>();
+        callbackResultsText = callbackResultsGameObject.GetComponent<Text>();
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
         btnSendQueuedHits.onClick.AddListener(sendQueuedHits);
