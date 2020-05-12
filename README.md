@@ -49,9 +49,8 @@ public class MainScript : MonoBehaviour
         }
         
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
+        ACPCore.SetWrapperType();
         ACPIdentity.RegisterExtension();
-        ACPLifecycle.RegisterExtension();
-        ACPSignal.RegisterExtension();
         ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
     }
