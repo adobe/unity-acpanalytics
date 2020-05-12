@@ -33,6 +33,20 @@ jobs:
       with:
         path: cache
         key: cache
+        
+    # Test
+    - name: Run tests
+      uses: webbertakken/unity-test-runner@v1.3
+      with:
+        projectPath: ACPAnalytics
+        unityVersion: 2019.3.11f1-ios-update-2020-04-26
+        testMode: playmode 
+
+    # Upload artifact
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Test results
+        path: bin
 
     # Build
     - name: Build project
@@ -45,18 +59,4 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: Build
-        path: bin
-    
-    # Test
-    - name: Run tests
-      uses: webbertakken/unity-test-runner@v1.3
-      with:
-        projectPath: ACPAnalytics
-        unityVersion: 2019.3.11f1
-        testMode: playmode 
-
-    # Upload artifact
-    - uses: actions/upload-artifact@v1
-      with:
-        name: Test results
         path: bin
