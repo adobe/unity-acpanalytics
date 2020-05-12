@@ -19,9 +19,6 @@ using AOT;
 
 public class SceneScript : MonoBehaviour
 {
-    public static String results;
-    public Text callbackResultsText;
-
     // Analytics Buttons
     public Button btnExtensionVersion;
     public Button btnSendQueuedHits;
@@ -44,28 +41,22 @@ public class SceneScript : MonoBehaviour
     public static void HandleAdobeGetQueueSizeCallback(long queueSize)
     {
         Debug.Log("Queue size is : " + queueSize);
-        results = "Queue size is : " + queueSize;
-
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetTrackingIdentifierCallback))]
     public static void HandleAdobeGetTrackingIdentifierCallback(string trackingIdentifier)
     {
         Debug.Log("Tracking identifier is : " + trackingIdentifier);
-        results = "Tracking identifier is : " + trackingIdentifier;
+        
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetVisitorIdentifierCallback))]
     public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentifier)
     {
         Debug.Log("Visitor identifier is : " + visitorIdentifier);
-        results = "Visitor identifier is : " + visitorIdentifier;
+        callbackResults.text = visitorIdentifier;
     }
 
-    private void Update()
-    {
-        callbackResultsText.text = results;
-    }
 
     void Start()
     {
@@ -73,8 +64,7 @@ public class SceneScript : MonoBehaviour
             ACPCore.SetApplication();
         }
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
-        ACPCore.SetWrapperType();
-        ACPIdentity.RegisterExtension();
+        ACPIdentity.registerExtension();
         ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
 
@@ -95,7 +85,7 @@ public class SceneScript : MonoBehaviour
         Debug.Log("Calling Analytics extensionVersion");
 		string analyticsExtensionVersion = ACPAnalytics.ExtensionVersion();
         Debug.Log("Analytics extension version : " + analyticsExtensionVersion);
-        results = "Analytics extension version : " + analyticsExtensionVersion;
+        callbackResults.text = analyticsExtensionVersion;
     }
 
     void sendQueuedHits()
