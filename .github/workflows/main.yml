@@ -41,6 +41,12 @@ jobs:
         projectPath: ACPAnalytics
         unityVersion: 2019.3.11f1
         testMode: playmode 
+      
+    # Upload artifact
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Test results
+        path: bin
 
     # Build
     - name: Build project
