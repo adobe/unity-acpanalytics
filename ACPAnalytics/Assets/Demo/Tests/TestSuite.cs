@@ -21,7 +21,6 @@ namespace Tests
 {
     public class TestSuite
     {
-        public string extensionVersion = "";
         [UnityTest]
         public IEnumerator AnalyticsExtensionVersion()
         {
