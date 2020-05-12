@@ -39,7 +39,7 @@ jobs:
       uses: webbertakken/unity-test-runner@v1.3
       with:
         projectPath: ACPAnalytics
-        unityVersion: 2019.3.11f1-ios-update-2020-04-26
+        unityVersion: 2019.3.11f1
         testMode: playmode 
 
     # Upload artifact
