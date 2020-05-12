@@ -35,12 +35,12 @@ jobs:
         key: cache
         
     # Test
-    - name: Run tests
-      uses: webbertakken/unity-test-runner@v1.3
-      with:
-        projectPath: ACPAnalytics
-        unityVersion: 2019.3.11f1
-        testMode: playmode 
+    - name: 'run unity tests'
+      uses: ncipollo/unity-action@master
+      with: 
+        username: ${{ secrets.username }}
+        password: ${{ secrets.password }}
+        license: ${{ secrets.license }}
 
     # Upload artifact
     - uses: actions/upload-artifact@v1
