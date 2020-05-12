@@ -19,6 +19,9 @@ using AOT;
 
 public class SceneScript : MonoBehaviour
 {
+    public static String results;
+    public Text callbackResultsText;
+
     // Analytics Buttons
     public Button btnExtensionVersion;
     public Button btnSendQueuedHits;
@@ -28,6 +31,7 @@ public class SceneScript : MonoBehaviour
     public Button btnSetVisitorIdentifier;
     public Button btnGetVisitorIdentifier;
     public InputField visitorIdentifier;
+    public static Text callbackResults;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
@@ -40,20 +44,28 @@ public class SceneScript : MonoBehaviour
     public static void HandleAdobeGetQueueSizeCallback(long queueSize)
     {
         Debug.Log("Queue size is : " + queueSize);
+        results = "Queue size is : " + queueSize;
+
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetTrackingIdentifierCallback))]
     public static void HandleAdobeGetTrackingIdentifierCallback(string trackingIdentifier)
     {
         Debug.Log("Tracking identifier is : " + trackingIdentifier);
+        results = "Tracking identifier is : " + trackingIdentifier;
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetVisitorIdentifierCallback))]
     public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentifier)
     {
         Debug.Log("Visitor identifier is : " + visitorIdentifier);
+        results = "Visitor identifier is : " + visitorIdentifier;
     }
 
+    private void Update()
+    {
+        callbackResultsText.text = results;
+    }
 
     void Start()
     {
@@ -61,9 +73,13 @@ public class SceneScript : MonoBehaviour
             ACPCore.SetApplication();
         }
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
-        ACPIdentity.registerExtension();
-        ACPAnalytics.AnalyticsRegisterExtension();
+        ACPCore.SetWrapperType();
+        ACPIdentity.RegisterExtension();
+        ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
+
+        var callbackResultsGameObject = GameObject.Find("CallbackResults");
+        callbackResults = callbackResultsGameObject.GetComponent<Text>();
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
         btnSendQueuedHits.onClick.AddListener(sendQueuedHits);
@@ -77,9 +93,10 @@ public class SceneScript : MonoBehaviour
     void analyticsExtensionVersion()
 	{
         Debug.Log("Calling Analytics extensionVersion");
-		string analyticsExtensionVersion = ACPAnalytics.AnalyticsExtensionVersion();
+		string analyticsExtensionVersion = ACPAnalytics.ExtensionVersion();
         Debug.Log("Analytics extension version : " + analyticsExtensionVersion);
-	}
+        results = "Analytics extension version : " + analyticsExtensionVersion;
+    }
 
     void sendQueuedHits()
     {
