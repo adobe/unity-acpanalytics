@@ -31,6 +31,7 @@ public class SceneScript : MonoBehaviour
     public Button btnSetVisitorIdentifier;
     public Button btnGetVisitorIdentifier;
     public InputField visitorIdentifier;
+    public static Text callbackResults;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
@@ -76,6 +77,9 @@ public class SceneScript : MonoBehaviour
         ACPIdentity.RegisterExtension();
         ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
+
+        var callbackResultsGameObject = GameObject.Find("CallbackResults");
+        callbackResults = callbackResultsGameObject.GetComponent<Text>();
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
         btnSendQueuedHits.onClick.AddListener(sendQueuedHits);
