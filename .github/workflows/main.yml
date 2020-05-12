@@ -1,0 +1,40 @@
+name: ACPAnalytics CI/CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+ 
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  build:
+    name: Build ACPAnalytics
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Checkout
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+        
+    # Cache
+    - uses: actions/cache@v1.1.0
+      with:
+        path: cache
+        key: cache
+
+    # Build
+    - name: Build project
+      uses: webbertakken/unity-builder@v0.10
+      with:
+        unityVersion: 2019.3.11f1
+        targetPlatform: iOS
+
+    # Output
+    - uses: actions/upload-artifact@v1
+      with:
+        name: ACPAnalyticsPackage
+        path: bin

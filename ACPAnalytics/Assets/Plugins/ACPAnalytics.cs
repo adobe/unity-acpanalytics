@@ -1,4 +1,5 @@
 ﻿/*
+Unity Plug-in v: 0.0.1
 Copyright 2020 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
@@ -102,7 +103,7 @@ namespace com.adobe.marketing.mobile
 	    /*---------------------------------------------------------------------
 	    * Analytics Methods
 	    *----------------------------------------------------------------------*/
-        public static string AnalyticsExtensionVersion()
+        public static string ExtensionVersion()
 	    {
             #if UNITY_IPHONE && !UNITY_EDITOR
             return Marshal.PtrToStringAnsi(acp_Analytics_ExtensionVersion());		
@@ -113,7 +114,7 @@ namespace com.adobe.marketing.mobile
             #endif
 	    }
 
-        public static void AnalyticsRegisterExtension()
+        public static void RegisterExtension()
         {
             #if UNITY_IPHONE && !UNITY_EDITOR
             acp_Analytics_RegisterExtension();

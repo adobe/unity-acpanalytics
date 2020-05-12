@@ -1,12 +1,11 @@
 ﻿/*
-Copyright 2020 Adobe. All rights reserved.
-This file is licensed to you under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License. You may obtain a copy
-of the License at http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software distributed under
-the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
-OF ANY KIND, either express or implied. See the License for the specific language
-governing permissions and limitations under the License.
+Copyright 2020 Adobe
+All Rights Reserved.
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it. If you have received this file from a source other than Adobe,
+then your use, modification, or distribution of it requires the prior
+written permission of Adobe.
 */
 
 using System.Collections;
@@ -19,6 +18,9 @@ using AOT;
 
 public class SceneScript : MonoBehaviour
 {
+    public static String results;
+    public Text callbackResultsText;
+
     // Analytics Buttons
     public Button btnExtensionVersion;
     public Button btnSendQueuedHits;
@@ -28,6 +30,7 @@ public class SceneScript : MonoBehaviour
     public Button btnSetVisitorIdentifier;
     public Button btnGetVisitorIdentifier;
     public InputField visitorIdentifier;
+    public static Text callbackResults;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
@@ -40,20 +43,27 @@ public class SceneScript : MonoBehaviour
     public static void HandleAdobeGetQueueSizeCallback(long queueSize)
     {
         Debug.Log("Queue size is : " + queueSize);
+        results = "Queue size is : " + queueSize;
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetTrackingIdentifierCallback))]
     public static void HandleAdobeGetTrackingIdentifierCallback(string trackingIdentifier)
     {
         Debug.Log("Tracking identifier is : " + trackingIdentifier);
+        results = "Tracking identifier is : " + trackingIdentifier;
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetVisitorIdentifierCallback))]
     public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentifier)
     {
         Debug.Log("Visitor identifier is : " + visitorIdentifier);
+        results = "Visitor identifier is : " + visitorIdentifier;
     }
 
+    private void Update()
+    {
+        callbackResultsText.text = results;
+    }
 
     void Start()
     {
@@ -61,9 +71,13 @@ public class SceneScript : MonoBehaviour
             ACPCore.SetApplication();
         }
         ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
-        ACPIdentity.registerExtension();
-        ACPAnalytics.AnalyticsRegisterExtension();
+        ACPCore.SetWrapperType();
+        ACPIdentity.RegisterExtension();
+        ACPAnalytics.RegisterExtension();
         ACPCore.Start(HandleStartAdobeCallback);
+
+        var callbackResultsGameObject = GameObject.Find("CallbackResults");
+        callbackResultsText = callbackResultsGameObject.GetComponent<Text>();
 
         btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
         btnSendQueuedHits.onClick.AddListener(sendQueuedHits);
@@ -77,9 +91,10 @@ public class SceneScript : MonoBehaviour
     void analyticsExtensionVersion()
 	{
         Debug.Log("Calling Analytics extensionVersion");
-		string analyticsExtensionVersion = ACPAnalytics.AnalyticsExtensionVersion();
+		string analyticsExtensionVersion = ACPAnalytics.ExtensionVersion();
         Debug.Log("Analytics extension version : " + analyticsExtensionVersion);
-	}
+        results = "Analytics extension version : " + analyticsExtensionVersion;
+    }
 
     void sendQueuedHits()
     {

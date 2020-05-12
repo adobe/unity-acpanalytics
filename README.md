@@ -1,135 +1,127 @@
+# Adobe Experience Platform - Analytics plugin for Unity apps
 
-# Adobe Experience Platform - Analytics package for Unity apps
-
-[![CI](https://github.com/adobe/unity-acpanalytics/workflows/CI/badge.svg)](https://github.com/adobe/unity-acpanalytics/actions)
-[![npm](https://img.shields.io/npm/v/@adobe/unity-acpanalytics)](https://www.npmjs.com/package/@adobe/unity-acpanalytics)
-[![GitHub](https://img.shields.io/github/license/adobe/unity-acpanalytics)](https://github.com/adobe/unity-acpanalytics/blob/master/LICENSE)
-
-- [Prerequisites](#prerequisites)  
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Usage](#usage)  
+- [Usage](#usage)
+    - [Initialization](#initialization)
+    - [Analytics methods](#Analytics-methods)
 - [Running Tests](#running-tests)
-- [Sample App](#sample-app)  
-- [Contributing](#contributing)  
-- [Licensing](#licensing)  
+- [Sample App](#sample-app)
+- [Contributing](#contributing)
+- [Licensing](#licensing)
 
-# TODO
-update me for unity
+## Prerequisites
 
-## Prerequisites  
+The `Unity Hub` application is required for development and testing. Inside of `Unity Hub`, you will be required to download the current version of the `Unity` app.
 
-Cordova is distributed via [Node Package Management](https://www.npmjs.com/) (aka - `npm`).  
+[Download the Unity Hub](http://unity3d.com/unity/download). The free version works for development and testing, but a Unity Pro license is required for distribution. See [Distribution](#distribution) below for details.
 
-In order to install and build Cordova applications you will need to have `Node.js` installed. [Install Node.js](https://nodejs.org/en/).  
+#### FOLDER STRUCTURE
+Plugins for a Unity project use the following folder structure:
 
-Once Node.js is installed, you can install the Cordova framework from terminal:  
-
-```  
-sudo npm install -g cordova  
-```  
+`{Project}/Assets/Plugins/{Platform}`
 
 ## Installation
+- Download [ACPCore-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-0.0.1-Unity.zip) 
+- Unzip `ACPCore-0.0.1-Unity.zip`
+- Import `ACPCore.unitypackage` via Assets->Import Package
 
-To start using the Analytics plugin for Cordova, navigate to the directory of your Cordova app and install the plugin:
-```
-cordova plugin add https://github.com/adobe/cordova-acpanalytics.git
-```
-Check out the documentation for help with APIs
-
+- Download [ACPAnalytics-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/ACPAnalytics/bin/ACPAnalytics-0.0.1-Unity.zip) 
+- Unzip`ACPAnalytics-0.0.1-Unity.zip`
+- Import `ACPAnalytics.unitypackage` via Assets->Import Package
 ## Usage
 
-##### Getting the SDK version:
-```js
-ACPAnalytics.extensionVersion(function(version){  
-    console.log(version);
-}, function(error){  
-    console.log(error);  
-});
-```
-##### Registering the extension with ACPCore:  
+### [Analytics](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-analytics)
 
- > Note: It is required to initialize the SDK via native code inside your AppDelegate and MainApplication for iOS and Android respectively. For more information see how to initialize [Core](https://aep-sdks.gitbook.io/docs/getting-started/initialize-the-sdk).  
-  ##### **iOS**  
-```objective-c
-#import "ACPAnalytics.h"  
-[ACPAnalytics registerExtension];  
-```  
-  ##### **Android:**  
-```java
-import com.adobe.marketing.mobile.Analytics;  
-Analytics.registerExtension();
+#### Initialization
+##### Initialize by registering the extensions and calling the start function for core
 ```
-##### Get the tracking identifier:
-```js
-ACPAnalytics.getTrackingIdentifier(function(trackingId) {  
-    console.log(trackingId);
-}, function(error){  
-    console.log(error);  
-});
-```
-##### Send queued hits:
-```js
-ACPAnalytics.sendQueuedHits(function(response){  
-    console.log("Success in sendQueuedHits");  
-}, function(error){  
-    console.log(error);  
-});  
-```
-##### Get the queue size:
-```js
-ACPAnalytics.getQueueSize(function(size) {  
-    console.log(size);
-}, function(error){  
-    console.log(error);  
-});
-```
-##### Clear queued hits:
-```js
-ACPAnalytics.clearQueue(function(response){  
-    console.log("Success in clearing queue");  
-}, function(error){  
-    console.log(error);  
-});
-```
-##### Set the custom visitor identifier:
-```js
-ACPAnalytics.setVisitorIdentifier(customVisitorId, function(response) {  
-    console.log("Success in setting visitor Id with " + customVisitorId);  
-}, function(error){  
-    console.log(error);  
-});
-```
-##### Get the custom visitor identifier:
-```js
-ACPAnalytics.getVisitorIdentifier(function(visitorId) {  
-    console.log(visitorId);
-}, function(error){  
-    console.log(error);  
-});
-```  
+using com.adobe.marketing.mobile;
+using using AOT;
 
+public class MainScript : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {   
+        if (Application.platform == RuntimePlatform.Android) {
+            ACPCore.SetApplication();
+        }
+        
+        ACPCore.SetLogLevel(ACPCore.ACPMobileLogLevel.VERBOSE);
+        ACPCore.SetWrapperType();
+        ACPIdentity.RegisterExtension();
+        ACPAnalytics.RegisterExtension();
+        ACPCore.Start(HandleStartAdobeCallback);
+    }
+}
+```
+
+#### Analytics methods
+
+##### Getting Analytics version:
+```cs
+ACPAnalytics.ExtensionVersion();
+```
+
+#### Send queued hits:
+```cs
+ACPAnalytics.SendQueuedHits();
+```
+
+#### Clear queued hits:
+```cs
+ACPAnalytics.ClearQueue();
+```
+
+#### Get the queue size:
+```cs
+[MonoPInvokeCallback(typeof(AdobeGetQueueSizeCallback))]
+public static void HandleAdobeGetQueueSizeCallback(long queueSize)
+{
+    Debug.Log("Queue size is : " + queueSize);
+}
+ACPAnalytics.GetQueueSize(HandleAdobeGetQueueSizeCallback);
+```
+
+#### Get the tracking identifier
+```cs
+[MonoPInvokeCallback(typeof(AdobeGetTrackingIdentifierCallback))]
+public static void HandleAdobeGetTrackingIdentifierCallback(string trackingIdentifier)
+{
+    Debug.Log("Tracking identifier is : " + trackingIdentifier);
+}
+ACPAnalytics.GetTrackingIdentifier(HandleAdobeGetTrackingIdentifierCallback);
+```
+
+#### Set the custom visitor identifier
+```cs
+ACPAnalytics.SetVisitorIdentifier("VisitorIdentifier");
+```
+
+#### Get the custom visitor identifier
+```cs
+[MonoPInvokeCallback(typeof(AdobeGetVisitorIdentifierCallback))]
+public static void HandleAdobeGetVisitorIdentifierCallback(string visitorIdentifier)
+{
+    Debug.Log("Visitor identifier is : " + visitorIdentifier);
+}
+ACPAnalytics.GetVisitorIdentifier(HandleAdobeGetVisitorIdentifierCallback);
+```
 ## Running Tests
-Install cordova-paramedic `https://github.com/apache/cordova-paramedic`
-```bash
-npm install -g cordova-paramedic
-```
-
-Run the tests
-```
-cordova-paramedic --platform ios --plugin . --verbose
-```
-```
-cordova-paramedic --platform android --plugin . --verbose
-```
+1. Open the demo app in unity.
+2. Open the test runner from `Window -> General -> TestRunner`.
+3. Click on the `PlayMode` tab.
+4. Connect an Android or iOS device as we run the tests on a device in play mode.
+5. Select the platform for which the tests need to be run from `File -> Build Settings -> Platform`. 
+5. Click `Run all in player (platform)` to run the tests.
 
 ## Sample App
-
-A Cordova app for testing the plugin is located in the `https://github.com/adobe/cordova-acpsample`. The app is configured for both iOS and Android platforms.  
 
 ## Contributing
 Looking to contribute to this project? Please review our [Contributing guidelines](.github/CONTRIBUTING.md) prior to opening a pull request.
 
 We look forward to working with you!
 
-## Licensing  
+## Licensing
 This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
