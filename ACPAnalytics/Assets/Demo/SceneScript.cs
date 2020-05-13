@@ -93,10 +93,6 @@ public class SceneScript : MonoBehaviour
         var callbackResultsGameObject = GameObject.Find("CallbackResults");
         callbackResultsText = callbackResultsGameObject.GetComponent<Text>();
 
-        //setup
-        ACPAnalytics.ClearQueue();
-        ACPCore.SetPrivacyStatus(ACPCore.ACPMobilePrivacyStatus.OPT_IN);
-
         btnExtensionVersion.onClick.AddListener(AnalyticsExtensionVersion);
         btnSendQueuedHits.onClick.AddListener(SendQueuedHits);
         btnClearQueue.onClick.AddListener(ClearQueue);
@@ -161,6 +157,8 @@ public class SceneScript : MonoBehaviour
         Dictionary<string,object> config = new Dictionary<string, object>();
         config.Add("analytics.batchLimit", "5");
         ACPCore.UpdateConfiguration(config);
+
+        Thread.Sleep(1000);
 
         Dictionary<string,string> contextData = new Dictionary<string, string>();
         contextData.Add("contextdata", "data");
