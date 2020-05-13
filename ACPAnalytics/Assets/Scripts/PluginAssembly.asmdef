@@ -1,9 +1,10 @@
 {
-    "name": "GameAssembly",
-    "references": [
-        "GUID:70079eaa1f5dd41ab9ee438c7ff75903"
+    "name": "PluginAssembly",
+    "references": [],
+    "includePlatforms": [
+        "Android",
+        "iOS"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

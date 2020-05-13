@@ -38,14 +38,16 @@ namespace Tests
         [UnityTest]
         public IEnumerator ClearQueue()
         {
+            InvokeButtonClick("BatchAnalyticsHits");
             InvokeButtonClick("ClearQueue");
-            return AssertEqualResult("GetQueueSize","Queue size is : 0");
+            return AssertEqualResult("GetQueueSize", "Queue size is : 0");
         }
 
         [UnityTest]
         public IEnumerator GetQueueSize()
         {
-            return AssertGreaterLengthResult("GetQueueSize",  "Queue size is : ".Length);
+            return AssertEqualResult("BatchAnalyticsHits",  "Queue size is : 3");
+
         }
 
         [UnityTest]

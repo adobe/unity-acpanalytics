@@ -15,6 +15,7 @@ using UnityEngine.UI;
 using com.adobe.marketing.mobile;
 using System;
 using AOT;
+using System.Threading;
 
 public class SceneScript : MonoBehaviour
 {
@@ -29,14 +30,16 @@ public class SceneScript : MonoBehaviour
     public Button btnGetTrackingIdentifier;
     public Button btnSetVisitorIdentifier;
     public Button btnGetVisitorIdentifier;
+    public Button btnBatchAnalyticsHits;
     public InputField visitorIdentifier;
     public static Text callbackResults;
+    static CountdownEvent latch;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
     public static void HandleStartAdobeCallback()
     {
-        ACPCore.ConfigureWithAppID("94f571f308d5/7376e8bb5591/launch-15ec923b1cfa-development");    
+        ACPCore.ConfigureWithAppID("94f571f308d5/00fc543a60e1/launch-c861fab912f7-development");    
     }
 
     [MonoPInvokeCallback(typeof(AdobeGetQueueSizeCallback))]
@@ -60,6 +63,17 @@ public class SceneScript : MonoBehaviour
         results = "Visitor identifier is : " + visitorIdentifier;
     }
 
+    [MonoPInvokeCallback(typeof(AdobeGetQueueSizeCallback))]
+    public static void HandleAdobeBatchedGetQueueSizeCallback(long queueSize)
+    {
+        Debug.Log("Queue size is : " + queueSize);
+        results = "Queue size is : " + queueSize;
+        if (latch != null)
+        {
+            latch.Signal();
+        }
+    }
+
     private void Update()
     {
         callbackResultsText.text = results;
@@ -79,16 +93,17 @@ public class SceneScript : MonoBehaviour
         var callbackResultsGameObject = GameObject.Find("CallbackResults");
         callbackResultsText = callbackResultsGameObject.GetComponent<Text>();
 
-        btnExtensionVersion.onClick.AddListener(analyticsExtensionVersion);
-        btnSendQueuedHits.onClick.AddListener(sendQueuedHits);
-        btnClearQueue.onClick.AddListener(clearQueue);
-        btnGetQueueSize.onClick.AddListener(getQueueSize);
-        btnGetTrackingIdentifier.onClick.AddListener(getTrackingIdentifier);
-        btnGetVisitorIdentifier.onClick.AddListener(getVisitorIdentifier);
-        btnSetVisitorIdentifier.onClick.AddListener(setVisitorIdentifier);
+        btnExtensionVersion.onClick.AddListener(AnalyticsExtensionVersion);
+        btnSendQueuedHits.onClick.AddListener(SendQueuedHits);
+        btnClearQueue.onClick.AddListener(ClearQueue);
+        btnGetQueueSize.onClick.AddListener(GetQueueSize);
+        btnGetTrackingIdentifier.onClick.AddListener(GetTrackingIdentifier);
+        btnGetVisitorIdentifier.onClick.AddListener(GetVisitorIdentifier);
+        btnSetVisitorIdentifier.onClick.AddListener(SetVisitorIdentifier);
+        btnBatchAnalyticsHits.onClick.AddListener(BatchAnalyticsHits);
     }
 
-    void analyticsExtensionVersion()
+    void AnalyticsExtensionVersion()
 	{
         Debug.Log("Calling Analytics extensionVersion");
 		string analyticsExtensionVersion = ACPAnalytics.ExtensionVersion();
@@ -96,39 +111,67 @@ public class SceneScript : MonoBehaviour
         results = "Analytics extension version : " + analyticsExtensionVersion;
     }
 
-    void sendQueuedHits()
+    void SendQueuedHits()
     {
         Debug.Log("Calling sendQueuedHits");
         ACPAnalytics.SendQueuedHits();
     }
 
-    void clearQueue()
+    void ClearQueue()
     {
         Debug.Log("Calling clearQueue");
         ACPAnalytics.ClearQueue();
     }
 
-    void getQueueSize()
+    void GetQueueSize()
     {
         Debug.Log("Calling getQueueSize");
         ACPAnalytics.GetQueueSize(HandleAdobeGetQueueSizeCallback);
     }
 
-    void getTrackingIdentifier()
+    void GetTrackingIdentifier()
     {
         Debug.Log("Calling getTrackingIdentifier");
         ACPAnalytics.GetTrackingIdentifier(HandleAdobeGetTrackingIdentifierCallback);
     }
 
-    void setVisitorIdentifier()
+    void SetVisitorIdentifier()
     {
         Debug.Log("Calling setVisitorIdentifier");
         ACPAnalytics.SetVisitorIdentifier(visitorIdentifier.text);
     }
 
-    void getVisitorIdentifier()
+    void GetVisitorIdentifier()
     {
         Debug.Log("Calling getVisitorIdentifier");
         ACPAnalytics.GetVisitorIdentifier(HandleAdobeGetVisitorIdentifierCallback);
+    }
+
+    //used for testing
+    void BatchAnalyticsHits()
+    {
+        //setup
+        latch = new CountdownEvent(1);
+
+        //set batch limit to 5
+        Dictionary<string,object> config = new Dictionary<string, object>();
+        config.Add("analytics.batchLimit", "5");
+        ACPCore.UpdateConfiguration(config);
+
+        Thread.Sleep(1000);
+
+        Dictionary<string,string> contextData = new Dictionary<string, string>();
+        contextData.Add("contextdata", "data");
+        ACPCore.TrackAction("action", contextData);
+        ACPCore.TrackAction("action", contextData);
+        ACPCore.TrackAction("action", contextData);
+
+        //get queue size for batches hits
+        ACPAnalytics.GetQueueSize(HandleAdobeBatchedGetQueueSizeCallback);
+        latch.Wait();
+
+        //cleanup
+        latch.Dispose();
+        latch = null;
     }
 }

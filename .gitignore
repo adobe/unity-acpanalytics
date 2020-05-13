@@ -60,6 +60,8 @@ ACPSignal.cs
 ACPSignal.cs.meta
 core-1.5.2.aar
 core-1.5.2.aar.meta
+core-1.5.3.aar
+core-1.5.3.aar.meta
 identity-1.2.0.aar
 identity-1.2.0.aar.meta
 lifecycle-1.0.4.aar
@@ -100,6 +102,3 @@ libACPLifecycle_iOS.a
 libACPLifecycle_iOS.a.meta
 libACPSignal_iOS.a
 libACPSignal_iOS.a.meta
-
-#all meta files
-*.meta
