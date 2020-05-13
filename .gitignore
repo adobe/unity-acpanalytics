@@ -101,6 +101,3 @@ libACPLifecycle_iOS.a
 libACPLifecycle_iOS.a.meta
 libACPSignal_iOS.a
 libACPSignal_iOS.a.meta
-
-#all meta files
-*.meta
