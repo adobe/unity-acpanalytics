@@ -42,7 +42,7 @@ using AOT;
 [MonoPInvokeCallback(typeof(AdobeStartCallback))]
 public static void HandleStartAdobeCallback()
 {
-    ACPCore.ConfigureWithAppID("appId");    
+    ACPCore.ConfigureWithAppID("1423ae38-8385-8963-8693-28375403491d");    
 }
 
 public class MainScript : MonoBehaviour
