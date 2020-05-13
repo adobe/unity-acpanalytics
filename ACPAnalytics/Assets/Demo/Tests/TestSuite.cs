@@ -45,7 +45,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator GetQueueSize()
         {
-            return AssertGreaterLengthResult("GetQueueSize",  "Queue size is : ".Length);
+            return AssertEqualResult("GetQueueSize",  "Queue size is : 3");
         }
 
         [UnityTest]

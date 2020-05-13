@@ -111,6 +111,18 @@ public class SceneScript : MonoBehaviour
     void getQueueSize()
     {
         Debug.Log("Calling getQueueSize");
+
+        //set batch limit to 5
+        Dictionary<string,object> config = new Dictionary<string, object>();
+        config.Add("analytics.batchLimit", 5);
+        ACPCore.UpdateConfiguration(config);
+        //yield return new WaitForSeconds(5f);
+
+        //send Analytics hits
+        ACPCore.TrackAction("action",null);
+        ACPCore.TrackAction("action",null);
+        ACPCore.TrackAction("action",null);
+
         ACPAnalytics.GetQueueSize(HandleAdobeGetQueueSizeCallback);
     }
 
