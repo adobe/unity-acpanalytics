@@ -9,9 +9,9 @@ BIN_DIR=$(ROOT_DIR)/bin
 BUILD_DIR=$(BIN_DIR)/build_temp
 BUILD_PKG=ACPAnalytics.unitypackage
 ASSETS=Assets/Plugins
-PLUGIN_NAME=ACPAnalytics
-IOS_DIR=$(ASSETS)/iOS/$(PLUGIN_NAME)
-ANDROID_DIR=$(ASSETS)/Android/$(PLUGIN_NAME)
+IOS_DIR=$(ASSETS)/iOS
+ANDROID_DIR=$(ASSETS)/Android
+ALL_FILES=$(shell find ACPAnalytics/Assets/Plugins -type f -name "*ACPAnalytics*" ! -name "*.meta" -o -name "*analytics*" ! -name "*.meta" | sed 's/.*ACPAnalytics*\///')
 
 # targets
 release: clean setup unity_build
@@ -31,7 +31,7 @@ unity_build:
 	$(UNITY_BIN) -batchmode -quit \
 	-logFile $(BUILD_DIR)/buildLog.log \
 	-projectPath $(PROJECT_DIR) \
-	-exportPackage $(ASSETS)/$(PLUGIN_NAME) $(IOS_DIR) $(ANDROID_DIR) ../$(BUILD_DIR)/$(MOBILE_DIR)/$(BUILD_PKG)
+	-exportPackage $(ALL_FILES) ../$(BUILD_DIR)/$(MOBILE_DIR)/$(BUILD_PKG)
 
 	@echo ""
 	@echo "######################################################################"
