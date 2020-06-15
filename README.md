@@ -152,6 +152,15 @@ To build demo app for specific platform follow the below instructions.
 1. From the Xcode project run the app on a simulator.
 1. If you get an error `Symbol not found: _OBJC_CLASS_$_WKWebView`. Select the Unity-iPhone target -> Go to Build Phases tab -> Add `Webkit.Framework` to `Link Binary with Libraries`.
 
+## Additional Cordova Plugins
+
+Below is a list of additional Unity plugins from the AEP SDK suite:
+
+| Extension | GitHub | Unity Package |
+|-----------|--------|-----|
+| Core SDK | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/raw/master/bin/ACPCore-0.0.1-Unity.zip)
+| Project Griffon (Beta) | https://github.com/adobe/unity-acpgriffon | [ACPGriffon](https://github.com/adobe/unity-acpgriffon/raw/master/bin/ACPGriffon-0.0.1-Unity.zip)
+
 ## Contributing
 Looking to contribute to this project? Please review our [Contributing guidelines](.github/CONTRIBUTING.md) prior to opening a pull request.
 
