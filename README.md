@@ -30,10 +30,10 @@ Plugins for a Unity project use the following folder structure:
 - Unzip`ACPAnalytics-0.0.1-Unity.zip`
 - Import `ACPAnalytics.unitypackage` via Assets->Import Package
 
-#### Android
+#### Android installation
 No additional steps are required for Android installation.
 
-#### iOS
+#### iOS installation
 ACPCore 1.0.0 and above is shipped with XCFrameworks. Follow these steps to add them to the Xcode project generated when building and running for iOS platform in Unity.
 1. Go to File -> Project Settings -> Build System and select `New Build System`.
 2. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPCore) `ACPCore.xcframework`, `ACPIdentity.xcframework`, `ACPLifecycle.xcframework` and `ACPSignal.xcframework`.
@@ -161,11 +161,8 @@ To build demo app for specific platform follow the below instructions.
 5. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
 6. Name build whatever you want and press __Save__
 7. `Unity` will create and open an `Xcode` project
-8. From the Xcode project run the app on a simulator.
-9. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPCore) `ACPCore.xcframework`, `ACPIdentity.xcframework`, `ACPLifecycle.xcframework` and `ACPSignal.xcframework`.
-10. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPAnalytics) `ACPAnalytics.xcframework`.
-11. Select the UnityFramework target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 9 and 10 to `Link Binary with Libraries`.
-12. Select the Unity-iPhone target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 9 and 10 to `Link Binary with Libraries` and `Embed Frameworks`. Alternatively, select `Unity-iPhone` target -> Go to `General` tab -> Add the XCFrameworks downloaded in Steps 9 and 10 to `Frameworks, Libraries, and Embedded Content` -> Select `Embed and sign` option.
+8. [Add XCFrameworks to the Xcode project](#ios-installation).
+9. From the Xcode project run the app on a simulator.
 
 ## Additional Cordova Plugins
 
