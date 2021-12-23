@@ -12,7 +12,7 @@
 
 ## Prerequisites
 
-The `Unity Hub` application is required for development and testing. Inside of `Unity Hub`, you will be required to download the current version of the `Unity` app.
+The `Unity Hub` application is required for development and testing. Inside of `Unity Hub`, you will be required to download the `Unity` app. The ACPAnalytics Unity package is built using Unity version 2019.4.
 
 [Download the Unity Hub](http://unity3d.com/unity/download). The free version works for development and testing, but a Unity Pro license is required for distribution. See [Distribution](#distribution) below for details.
 
@@ -29,6 +29,18 @@ Plugins for a Unity project use the following folder structure:
 - Download [ACPAnalytics-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPAnalytics-0.0.1-Unity.zip) 
 - Unzip`ACPAnalytics-0.0.1-Unity.zip`
 - Import `ACPAnalytics.unitypackage` via Assets->Import Package
+
+#### Android
+No additional steps are required for Android installation.
+
+#### iOS
+ACPCore 1.0.0 and above is shipped with XCFrameworks. Follow these steps to add them to the Xcode project generated when building and running for iOS platform in Unity.
+1. Go to File -> Project Settings -> Build System and select `New Build System`.
+2. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPCore) `ACPCore.xcframework`, `ACPIdentity.xcframework`, `ACPLifecycle.xcframework` and `ACPSignal.xcframework`.
+3. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPAnalytics) `ACPAnalytics.xcframework`.
+4. Select the UnityFramework target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 2 and 3 to `Link Binary with Libraries`.
+5. Select the Unity-iPhone target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 2 and 3 to `Link Binary with Libraries` and `Embed Frameworks`. Alternatively, select `Unity-iPhone` target -> Go to `General` tab -> Add the XCFrameworks downloaded in Steps 2 and 3 to `Frameworks, Libraries, and Embedded Content` -> Select `Embed and sign` option.
+
 ## Usage
 
 ### [Analytics](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-analytics)
@@ -133,24 +145,27 @@ To build demo app for specific platform follow the below instructions.
 
 ###### Android
 1. Make sure you have an Android device connected.
-1. From the menu of the `Unity` app, select __File > Build Settings...__
-1. Select `Android` from the __Platform__ window
-1. If `Android` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
-1. Press the __Build And Run__ button
-2. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
-3. Name build whatever you want and press __Save__
-4. `Unity` will build an `apk` file and automatically deploy it to the connected device
+2. From the menu of the `Unity` app, select __File > Build Settings...__
+3. Select `Android` from the __Platform__ window
+4. If `Android` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
+5. Press the __Build And Run__ button
+6. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
+7. Name build whatever you want and press __Save__
+8. `Unity` will build an `apk` file and automatically deploy it to the connected device
 
 ###### iOS
 1. From the menu of the `Unity` app, select __File > Build Settings...__
-1. Select `iOS` from the __Platform__ window
-1. If `iOS` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
-1. Press the __Build And Run__ button
-1. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
-1. Name build whatever you want and press __Save__
-1. `Unity` will create and open an `Xcode` project
-1. From the Xcode project run the app on a simulator.
-1. If you get an error `Symbol not found: _OBJC_CLASS_$_WKWebView`. Select the Unity-iPhone target -> Go to Build Phases tab -> Add `Webkit.Framework` to `Link Binary with Libraries`.
+2. Select `iOS` from the __Platform__ window
+3. If `iOS` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
+4. Press the __Build And Run__ button
+5. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
+6. Name build whatever you want and press __Save__
+7. `Unity` will create and open an `Xcode` project
+8. From the Xcode project run the app on a simulator.
+9. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPCore) `ACPCore.xcframework`, `ACPIdentity.xcframework`, `ACPLifecycle.xcframework` and `ACPSignal.xcframework`.
+10. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPAnalytics) `ACPAnalytics.xcframework`.
+11. Select the UnityFramework target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 9 and 10 to `Link Binary with Libraries`.
+12. Select the Unity-iPhone target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 9 and 10 to `Link Binary with Libraries` and `Embed Frameworks`. Alternatively, select `Unity-iPhone` target -> Go to `General` tab -> Add the XCFrameworks downloaded in Steps 9 and 10 to `Frameworks, Libraries, and Embedded Content` -> Select `Embed and sign` option.
 
 ## Additional Cordova Plugins
 

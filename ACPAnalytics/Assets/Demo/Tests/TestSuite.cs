@@ -28,7 +28,7 @@ namespace Tests
                 return AssertEqualResult("ExtensionVersion","Analytics extension version : 1.2.4");
             } else if (Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                return AssertEqualResult("ExtensionVersion","Analytics extension version : 2.2.3");
+                return AssertEqualResult("ExtensionVersion","Analytics extension version : 2.5.1");
             } else
             {
                 return null;
