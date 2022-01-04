@@ -22,12 +22,12 @@ Plugins for a Unity project use the following folder structure:
 `{Project}/Assets/Plugins/{Platform}`
 
 ## Installation
-- Download [ACPCore-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-0.0.1-Unity.zip) 
-- Unzip `ACPCore-0.0.1-Unity.zip`
+- Download [ACPCore-1.0.0-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-1.0.0-Unity.zip) 
+- Unzip `ACPCore-1.0.0-Unity.zip`
 - Import `ACPCore.unitypackage` via Assets->Import Package
 
-- Download [ACPAnalytics-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPAnalytics-0.0.1-Unity.zip) 
-- Unzip`ACPAnalytics-0.0.1-Unity.zip`
+- Download [ACPAnalytics-1.0.0-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPAnalytics-1.0.0-Unity.zip) 
+- Unzip`ACPAnalytics-1.0.0-Unity.zip`
 - Import `ACPAnalytics.unitypackage` via Assets->Import Package
 
 #### Android installation
@@ -139,8 +139,8 @@ Sample App is located at *unity-acpanalytics/ACPAnalytics/Assets/Demo*.
 To build demo app for specific platform follow the below instructions.
 
 ###### Add core plugin
-- Download [ACPCore-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-0.0.1-Unity.zip) 
-- Unzip `ACPCore-0.0.1-Unity.zip`
+- Download [ACPCore-1.0.0-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-1.0.0-Unity.zip) 
+- Unzip `ACPCore-1.0.0-Unity.zip`
 - Import `ACPCore.unitypackage` via Assets->Import Package
 
 ###### Android
@@ -170,8 +170,8 @@ Below is a list of additional Unity plugins from the AEP SDK suite:
 
 | Extension | GitHub | Unity Package |
 |-----------|--------|-----|
-| Core SDK | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/raw/master/bin/ACPCore-0.0.1-Unity.zip)
-| Project Griffon (Beta) | https://github.com/adobe/unity-acpgriffon | [ACPGriffon](https://github.com/adobe/unity-acpgriffon/raw/master/bin/ACPGriffon-0.0.1-Unity.zip)
+| Core SDK | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/blob/master/bin/ACPCore-1.0.0-Unity.zip)
+| AEP Assurance | https://github.com/adobe/unity-aepassurance | [AEPAssurance](https://github.com/adobe/unity-aepassurance/blob/master/bin/AEPAssurance-1.0.0-Unity.zip)
 
 ## Contributing
 Looking to contribute to this project? Please review our [Contributing guidelines](.github/CONTRIBUTING.md) prior to opening a pull request.
