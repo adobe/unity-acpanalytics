@@ -170,8 +170,9 @@ Below is a list of additional Unity plugins from the AEP SDK suite:
 
 | Extension | GitHub | Unity Package |
 |-----------|--------|-----|
-| Core SDK | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/blob/master/bin/ACPCore-1.0.0-Unity.zip)
-| AEP Assurance | https://github.com/adobe/unity-aepassurance | [AEPAssurance](https://github.com/adobe/unity-aepassurance/blob/master/bin/AEPAssurance-1.0.0-Unity.zip)
+| ACPCore | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/blob/master/bin/ACPCore-1.0.1-Unity.zip)
+| AEPAssurance | https://github.com/adobe/unity-aepassurance | [AEPAssurance](https://github.com/adobe/unity-aepassurance/blob/master/bin/AEPAssurance-1.0.0-Unity.zip)
+| ACPUserProfile | https://github.com/adobe/unity_acpuserprofile | [ACPUserProfile](https://github.com/adobe/unity_acpuserprofile/blob/master/bin/ACPUserProfile-1.0.0-Unity.zip)
 
 ## Contributing
 Looking to contribute to this project? Please review our [Contributing guidelines](.github/CONTRIBUTING.md) prior to opening a pull request.
