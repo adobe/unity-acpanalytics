@@ -1,7 +1,7 @@
 VERSION=$(shell grep 'Plug-in v:' ACPAnalytics/Assets/Plugins/ACPAnalytics.cs | sed 's/.*Plug-in v.*:[[:space:]]*\(.*\)[[:space:]]*/\1/')
 RELEASE_DIR=ACPAnalytics-$(VERSION)-Unity
 MOBILE_DIR=$(RELEASE_DIR)/ACPAnalytics
-UNITY_BIN=/Applications/Unity/Hub/Editor/2019.3.10f1/Unity.app/Contents/MacOS/Unity
+UNITY_BIN=/Applications/Unity/Hub/Editor/2019.4.34f1/Unity.app/Contents/MacOS/Unity
 ROOT_DIR=.
 CURRENT_PATH=$(shell pwd)
 PROJECT_DIR=$(CURRENT_PATH)/ACPAnalytics

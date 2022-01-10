@@ -21,14 +21,19 @@ Plugins for a Unity project use the following folder structure:
 
 `{Project}/Assets/Plugins/{Platform}`
 
-## Installation
-- Download [ACPCore-1.0.0-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-1.0.0-Unity.zip) 
-- Unzip `ACPCore-1.0.0-Unity.zip`
-- Import `ACPCore.unitypackage` via Assets->Import Package
+## Building the ACPCore Unity Package
+1. Clone the [ACPCore Unity repository](https://github.com/adobe/unity-acpcore).
+2. In the root directory, run the following command to build the ACPCore Unity package in bin -> build_temp -> ACPCore-1.0.0-Unity -> ACPCore folder:
+    `make release`
+3. Import `ACPCore.unitypackage` via Assets-Import Package.
 
-- Download [ACPAnalytics-1.0.0-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPAnalytics-1.0.0-Unity.zip) 
-- Unzip`ACPAnalytics-1.0.0-Unity.zip`
-- Import `ACPAnalytics.unitypackage` via Assets->Import Package
+## Building the ACPAnalytics Unity Package
+1. Clone the current repository.
+2. In the root directory, run the following command to build the ACPAnalytics Unity package in bin -> build_temp -> ACPAnalytics-1.0.0-Unity -> ACPAnalytics folder:
+    `make release`
+3. Import `ACPAnalytics.unitypackage` via Assets-Import Package.
+
+## Installation
 
 #### Android installation
 No additional steps are required for Android installation.
