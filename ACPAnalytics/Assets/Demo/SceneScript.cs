@@ -33,7 +33,6 @@ public class SceneScript : MonoBehaviour
     public Button btnBatchAnalyticsHits;
     public InputField visitorIdentifier;
     public static Text callbackResults;
-    static CountdownEvent latch;
 
     // Analytics callbacks
     [MonoPInvokeCallback(typeof(AdobeStartCallback))]
@@ -68,10 +67,6 @@ public class SceneScript : MonoBehaviour
     {
         Debug.Log("Queue size is : " + queueSize);
         results = "Queue size is : " + queueSize;
-        if (latch != null)
-        {
-            latch.Signal();
-        }
     }
 
     private void Update()
@@ -150,15 +145,11 @@ public class SceneScript : MonoBehaviour
     //used for testing
     void BatchAnalyticsHits()
     {
-        //setup
-        latch = new CountdownEvent(1);
 
         //set batch limit to 5
         Dictionary<string,object> config = new Dictionary<string, object>();
         config.Add("analytics.batchLimit", "5");
         ACPCore.UpdateConfiguration(config);
-
-        Thread.Sleep(1000);
 
         Dictionary<string,string> contextData = new Dictionary<string, string>();
         contextData.Add("contextdata", "data");
@@ -168,10 +159,5 @@ public class SceneScript : MonoBehaviour
 
         //get queue size for batches hits
         ACPAnalytics.GetQueueSize(HandleAdobeBatchedGetQueueSizeCallback);
-        latch.Wait();
-
-        //cleanup
-        latch.Dispose();
-        latch = null;
     }
 }

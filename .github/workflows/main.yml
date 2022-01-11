@@ -23,20 +23,21 @@ jobs:
         lfs: true
         
     # Cache
-    - uses: actions/cache@v1.1.0
+    - uses: actions/cache@v2
       with:
         path: cache
         key: cache
 
     # Build
     - name: Build project
-      uses: webbertakken/unity-builder@v0.10
+      uses: game-ci/unity-builder@v2
       with:
-        unityVersion: 2019.3.11f1
+        unityVersion: auto
         targetPlatform: iOS
+        projectPath: ACPAnalytics/
 
     # Output
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v2
       with:
         name: ACPAnalyticsPackage
         path: bin

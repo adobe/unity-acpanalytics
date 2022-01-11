@@ -12,7 +12,7 @@
 
 ## Prerequisites
 
-The `Unity Hub` application is required for development and testing. Inside of `Unity Hub`, you will be required to download the current version of the `Unity` app.
+The `Unity Hub` application is required for development and testing. Inside of `Unity Hub`, you will be required to download the `Unity` app. The ACPAnalytics Unity package is built using Unity version 2019.4.
 
 [Download the Unity Hub](http://unity3d.com/unity/download). The free version works for development and testing, but a Unity Pro license is required for distribution. See [Distribution](#distribution) below for details.
 
@@ -22,13 +22,30 @@ Plugins for a Unity project use the following folder structure:
 `{Project}/Assets/Plugins/{Platform}`
 
 ## Installation
-- Download [ACPCore-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-0.0.1-Unity.zip) 
-- Unzip `ACPCore-0.0.1-Unity.zip`
-- Import `ACPCore.unitypackage` via Assets->Import Package
 
-- Download [ACPAnalytics-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPAnalytics-0.0.1-Unity.zip) 
-- Unzip`ACPAnalytics-0.0.1-Unity.zip`
-- Import `ACPAnalytics.unitypackage` via Assets->Import Package
+#### Building the ACPCore Unity Package
+1. Clone the [ACPCore Unity repository](https://github.com/adobe/unity-acpcore).
+2. In the root directory, run the following command to build the ACPCore Unity package:
+    `make release`
+3. Import `ACPCore.unitypackage` via Assets-Import Package from `bin -> build_temp -> ACPCore-1.0.0-Unity -> ACPCore` folder.
+
+#### Building the ACPAnalytics Unity Package
+1. Clone the current repository.
+2. In the root directory, run the following command to build the ACPAnalytics Unity package:
+    `make release`
+3. Import `ACPAnalytics.unitypackage` via Assets-Import Package from `bin -> build_temp -> ACPAnalytics-1.0.0-Unity -> ACPAnalytics` folder.
+
+#### Android installation
+No additional steps are required for Android installation.
+
+#### iOS installation
+ACPCore 1.0.0 and above is shipped with XCFrameworks. Follow these steps to add them to the Xcode project generated when building and running for iOS platform in Unity.
+1. Go to File -> Project Settings -> Build System and select `New Build System`.
+2. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPCore) `ACPCore.xcframework`, `ACPIdentity.xcframework`, `ACPLifecycle.xcframework` and `ACPSignal.xcframework`.
+3. [Download](https://github.com/Adobe-Marketing-Cloud/acp-sdks/tree/master/iOS/ACPAnalytics) `ACPAnalytics.xcframework`.
+4. Select the UnityFramework target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 2 and 3 to `Link Binary with Libraries`.
+5. Select the Unity-iPhone target -> Go to Build Phases tab -> Add the XCFrameworks downloaded in Steps 2 and 3 to `Link Binary with Libraries` and `Embed Frameworks`. Alternatively, select `Unity-iPhone` target -> Go to `General` tab -> Add the XCFrameworks downloaded in Steps 2 and 3 to `Frameworks, Libraries, and Embedded Content` -> Select `Embed and sign` option.
+
 ## Usage
 
 ### [Analytics](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-analytics)
@@ -127,30 +144,30 @@ Sample App is located at *unity-acpanalytics/ACPAnalytics/Assets/Demo*.
 To build demo app for specific platform follow the below instructions.
 
 ###### Add core plugin
-- Download [ACPCore-0.0.1-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-0.0.1-Unity.zip) 
-- Unzip `ACPCore-0.0.1-Unity.zip`
+- Download [ACPCore-1.0.0-Unity.zip](https://github.com/adobe/unity-acpcore/tree/master/bin/ACPCore-1.0.0-Unity.zip) 
+- Unzip `ACPCore-1.0.0-Unity.zip`
 - Import `ACPCore.unitypackage` via Assets->Import Package
 
 ###### Android
 1. Make sure you have an Android device connected.
-1. From the menu of the `Unity` app, select __File > Build Settings...__
-1. Select `Android` from the __Platform__ window
-1. If `Android` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
-1. Press the __Build And Run__ button
-2. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
-3. Name build whatever you want and press __Save__
-4. `Unity` will build an `apk` file and automatically deploy it to the connected device
+2. From the menu of the `Unity` app, select __File > Build Settings...__
+3. Select `Android` from the __Platform__ window
+4. If `Android` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
+5. Press the __Build And Run__ button
+6. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
+7. Name build whatever you want and press __Save__
+8. `Unity` will build an `apk` file and automatically deploy it to the connected device
 
 ###### iOS
 1. From the menu of the `Unity` app, select __File > Build Settings...__
-1. Select `iOS` from the __Platform__ window
-1. If `iOS` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
-1. Press the __Build And Run__ button
-1. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
-1. Name build whatever you want and press __Save__
-1. `Unity` will create and open an `Xcode` project
-1. From the Xcode project run the app on a simulator.
-1. If you get an error `Symbol not found: _OBJC_CLASS_$_WKWebView`. Select the Unity-iPhone target -> Go to Build Phases tab -> Add `Webkit.Framework` to `Link Binary with Libraries`.
+2. Select `iOS` from the __Platform__ window
+3. If `iOS` is not the active platform, hit the button that says __Switch Platform__ (it will only be available if you actually need to switch active platforms)
+4. Press the __Build And Run__ button
+5. You will be asked to provide a location to save the build. Make a new directory at *unity-acpanalytics/ACPAnalytics/Builds* (this folder is in the .gitignore file)
+6. Name build whatever you want and press __Save__
+7. `Unity` will create and open an `Xcode` project
+8. [Add XCFrameworks to the Xcode project](#ios-installation).
+9. From the Xcode project run the app on a simulator.
 
 ## Additional Cordova Plugins
 
@@ -158,8 +175,9 @@ Below is a list of additional Unity plugins from the AEP SDK suite:
 
 | Extension | GitHub | Unity Package |
 |-----------|--------|-----|
-| Core SDK | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/raw/master/bin/ACPCore-0.0.1-Unity.zip)
-| Project Griffon (Beta) | https://github.com/adobe/unity-acpgriffon | [ACPGriffon](https://github.com/adobe/unity-acpgriffon/raw/master/bin/ACPGriffon-0.0.1-Unity.zip)
+| ACPCore | https://github.com/adobe/unity-acpcore | [ACPCore](https://github.com/adobe/unity-acpcore/blob/master/bin/ACPCore-1.0.1-Unity.zip)
+| AEPAssurance | https://github.com/adobe/unity-aepassurance | [AEPAssurance](https://github.com/adobe/unity-aepassurance/blob/master/bin/AEPAssurance-1.0.0-Unity.zip)
+| ACPUserProfile | https://github.com/adobe/unity_acpuserprofile | [ACPUserProfile](https://github.com/adobe/unity_acpuserprofile/blob/master/bin/ACPUserProfile-1.0.0-Unity.zip)
 
 ## Contributing
 Looking to contribute to this project? Please review our [Contributing guidelines](.github/CONTRIBUTING.md) prior to opening a pull request.
